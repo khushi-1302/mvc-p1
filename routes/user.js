@@ -1,5 +1,9 @@
+const jwt=require("jsonwebtoken");
 const express= require("express");
 const router= express.Router();
+const User = require("../models/user");
+
+const auth = require("../middlewares/auth");
 const {handlegetAllUsers, handlegetUserbyId, handleCreateuser, handleDeleteUser} = require("../controllers/user");
 
 
@@ -7,7 +11,7 @@ const {handlegetAllUsers, handlegetUserbyId, handleCreateuser, handleDeleteUser}
 //     const allDBUsers= await User.find({});
 //     return res.json(allDBUsers);
 // });
-router.get("/", handlegetAllUsers);    //this will go to controllers
+router.get("/",auth, handlegetAllUsers);    //this will go to controllers
 
 // router.get("/:id", async (req, res) => { //FINDING USER BY ID IN DB
 //     // const id= Number(req.params.id);
@@ -15,9 +19,9 @@ router.get("/", handlegetAllUsers);    //this will go to controllers
 //     const findUser= await User.findById(req.params.id);  //id is generated itself in every entry of user in database
 //     return res.json(findUser); 
 // });
-router.get("/:id", handlegetUserbyId);
+router.get("/:id",auth, handlegetUserbyId);
 
-router.post("/", handleCreateuser);
+router.post("/", auth, handleCreateuser);
 // router.post("/", async(req, res) => { //CREATING A USER IN DB
 //     const body=req.body;    
 //     if (               //all these keys are passed from Postman through POST method
@@ -44,6 +48,28 @@ router.post("/", handleCreateuser);
 //     await User.findByIdAndDelete(req.params.id)
 //     return res.json({"status":"SUCCESS"});
 // })
-router.delete("/:id", handleDeleteUser)
+
+router.post("/login", async (req, res) => {
+    const { email } = req.body;
+
+    // find user in DB
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    // create token
+    const token = jwt.sign(
+        { id: user._id, email: user.email },
+        "MY_SECRET_KEY",
+        { expiresIn: "1h" }
+    );
+
+    return res.json({ token });
+});
+
+
+
+router.delete("/:id", auth, handleDeleteUser)
 
 module.exports= router;

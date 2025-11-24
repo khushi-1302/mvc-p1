@@ -28,3 +28,33 @@
 1763111727446:::1 GET: /api/users/691599872b5255c36da2af0b
 
 1763111746086:::1 GET: /api/users/69159d8197eda9170b8628be
+
+1763358562217:::1 POST: /api/users
+
+1763358594941:::1 POST: /api/users
+
+1763358771762:::1 POST: /api/users
+
+1763358882892:::1 POST: /api/users
+
+1763358886704:::1 POST: /api/users
+
+1763359133025:::1 POST: /api/users
+
+1763359250587:::1 POST: /api/users
+
+1763359299513:::1 POST: /api/users
+
+1763359395197:::1 GET: /api/users/
+
+1763359491686:::1 POST: /api/users/
+
+1763925816962:::1 POST: /api/users/login
+
+1763925939216:::1 POST: /api/users/login
+
+1763926032521:::1 POST: /api/users/login
+
+1763926121609:::1 GET: /api/users
+
+1763926261503:::1 POST: /api/users/login

@@ -15,18 +15,19 @@ async function handlegetUserbyId(req,res) {
 async function handleCreateuser(req,res) {
     const body=req.body;    
     if (               //all these keys are passed from Postman through POST method
-        !body.first_name || !body.last_name || !body.email || !body.gender || !body.job_title 
+        !body.firstName || !body.lastName || !body.email || !body.gender || !body.jobTitle 
     ) {  
         return res.status(400).json({ msg: "All fields req.."});
     }
     const createUser= await User.create({
-        firstName: body.first_name,
-        lastName: body.last_name,
+        firstName: body.firstName,
+        lastName: body.lastName,
         email: body.email,
         gender: body.gender,
         jobTitle: body.jobTitle
     })
     console.log("Result", createUser);
+
     return res.status(201).json({status: "success"});
 }
 
